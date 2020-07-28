@@ -163,7 +163,6 @@ app.post('/registrar', (req, res) => {
         reg = reg + tz + ";" + dataHora + ';' + matricula + ';q10;' + c8 + ';<br>' + '\n';
         reg = reg + tz + ";" + dataHora + ';' + matricula + ';q11;' + c9 + ';<br>' + '\n';
         reg = reg + tz + ";" + dataHora + ';' + matricula + ';q12;' + assinatura + ';<br>' + '\n';
-//        const reg = reg + tz + ";" + dataHora + ';' + matricula + ';' + radiotxt + ';' + tempo + ';' + c1 + ';' + c2 + ';' + c3 + ';' + c4 + ';' + c5 + ';' + c6 + ';' + c7 + ';' + c8 + ';' + assinatura + '\n'
         
         nomeArq = "data/"+now.getFullYear()+zeroFill((now.getMonth() + 1))+zeroFill(now.getUTCDate())+".txt";
         fs.appendFile(nomeArq, reg, function (err) {

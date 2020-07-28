@@ -134,7 +134,6 @@
               </div>
               <div class="row">
                   <input type="number" style="font-weight:bold" oninput="lengthCheck(this)" maxlength = "5" id=matricula name="matricula" placeholder="">
-                  <input type="text" name="radiotxt" id="radiotxt" hidden>
               </div> 
             </div>
             <div id="div-visitante" style="display: none">
@@ -163,11 +162,11 @@
               </div>
               <div class="row">
                   <label class="radiocontainer">Sim
-                    <input type="radio" id=r1 name="radioSintoma" />
+                    <input type="radio" id=r1 name="radioSintoma" value="on"/>
                     <span class="radiomark"></span>
                   </label>
                   <label class="radiocontainer">Não
-                    <input type="radio" id=r2 name="radioSintoma" />
+                    <input type="radio" id=r2 name="radioSintoma" value="off"/>
                     <span class="radiomark"></span>
                   </label>
               </div>  
