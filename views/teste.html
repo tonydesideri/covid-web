@@ -90,6 +90,23 @@
           }
       }
 
+      function habilitarCampos() {
+        document.getElementById('c9').checked = false
+      }
+
+      function desabilitarCampos(){
+        if (document.getElementById('c9').checked) {
+          document.getElementById('c1').checked = false
+          document.getElementById('c2').checked = false
+          document.getElementById('c3').checked = false
+          document.getElementById('c4').checked = false
+          document.getElementById('c5').checked = false
+          document.getElementById('c6').checked = false
+          document.getElementById('c7').checked = false
+          document.getElementById('c8').checked = false
+        }
+      }
+
       mostrarCampos();
     </script>
 
@@ -136,6 +153,12 @@
             </div>
             <div id="div-corpo" style="display: none">
               <div class="row">
+                <label>Temperatura corporal</label>
+              </div>
+              <div class="row">
+                  <input type="text" style="font-weight:bold" id="temperatura" name="temperatura" placeholder="">
+              </div>
+              <div class="row">
                   <label>Você teve sintoma de COVID-19 nos últimos 5 dias?</label>
               </div>
               <div class="row">
@@ -149,46 +172,50 @@
                   </label>
               </div>  
               <div class="row">
-                  <label>Você teve um ou mais sintomas abaixo?</label>
+                  <label>Você teve um ou mais sintomas abaixo nos últimos 5 dias?</label>
               </div>
               <div class="row">
                   <label class="checkcontainer">Tosse
-                    <input type="checkbox" name="c1" id="c1">
+                    <input type="checkbox" name="c1" id="c1" onClick="habilitarCampos();">
                     <span class="checkmark"></span>
                     
                   </label>   
                   <label class="checkcontainer">Falta de ar
-                    <input type="checkbox" name="c2" id="c2">
+                    <input type="checkbox" name="c2" id="c2" onClick="habilitarCampos();">
                     <span class="checkmark"></span>
                     
                   </label>   
                   <label class="checkcontainer">Coriza
-                    <input type="checkbox" name="c3" id="c3">
+                    <input type="checkbox" name="c3" id="c3" onClick="habilitarCampos();">
                     <span class="checkmark"></span>
                     
                   </label>   
                   <label class="checkcontainer">Febre
-                    <input type="checkbox" name="c4" id="c4">
+                    <input type="checkbox" name="c4" id="c4" onClick="habilitarCampos();">
                     <span class="checkmark"></span>
                     
                   </label>   
                   <label class="checkcontainer">Falta de paladar ou olfato
-                    <input type="checkbox" name="c5" id="c5">
+                    <input type="checkbox" name="c5" id="c5" onClick="habilitarCampos();">
                     <span class="checkmark"></span>
                     
                   </label>   
                   <label class="checkcontainer">Dor de cabeça
-                    <input type="checkbox" name="c6" id="c6">
+                    <input type="checkbox" name="c6" id="c6" onClick="habilitarCampos();">
                     <span class="checkmark"></span>
                     
                   </label>   
                   <label class="checkcontainer">Dor no corpo
-                    <input type="checkbox" name="c7" id="c7">
+                    <input type="checkbox" name="c7" id="c7" onClick="habilitarCampos();">
                     <span class="checkmark"></span>
                     
                   </label>   
                   <label class="checkcontainer">Dor de garganta
-                    <input type="checkbox" name="c8" id="c8">
+                    <input type="checkbox" name="c8" id="c8" onClick="habilitarCampos();">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="checkcontainer">Não possuo nenhum dos sintomas listados
+                    <input type="checkbox" name="c9" id="c9" onClick="desabilitarCampos();">
                     <span class="checkmark"></span>
                   </label>   
               </div> 
