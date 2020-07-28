@@ -136,7 +136,7 @@ app.post('/registrar', (req, res) => {
         if (c9 == undefined) {c9="off"}; 
         
         //Enviar email
-        if (c2 === 'on' || c4 === 'on' || c5 === 'on') {
+        if (c2 === 'on' || c4 === 'on' || c5 === 'on' || radioSintoma === 'on') {
           sendMail(matricula, radioTipo, identificacao, empresa, radioSintoma, c2, c4, c5);
         }
 
@@ -170,7 +170,7 @@ app.post('/registrar', (req, res) => {
             //console.log('Updated!');
         });
 
-        if (c2 === 'on' || c4 === 'on' || c5 === 'on' || radioSintoma == 'on') {
+        if (c2 === 'on' || c4 === 'on' || c5 === 'on' || radioSintoma === 'on') {
           res.sendFile(path.join(__dirname, 'views', 'alert.html'));
         } else {
           res.sendFile(path.join(__dirname, 'views', 'ok.html'));
