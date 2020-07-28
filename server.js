@@ -47,7 +47,7 @@ async function sendMail(matricula, radioTipo, identificacao, empresa, radioSinto
     if (radioTipo == 'colaborador') {
       await transporter.sendMail({
         from: "tony.desideri@grupoicts.com.br",
-        to: "iza_travassus@denso.com.br, diego_damasceno@denso.com.br, dayana_carvalho@denso.com.br, kazumi_eto@denso.com.br, tony.desideri@grupoicts.com.br", 
+        to: "iza_travassus@denso.com.br, diego_damasceno@denso.com.br, dayana_carvalho@denso.com.br, kazumi_eto@denso.com.br", 
         subject: "Alerta intrevista COVID-19 #XôCorona",
         text: `Olá, este email está sendo enviado quando no formulário na entrevista da COVID-19 é preenchido a resposta "sim" para a pergunta se a pessoa 
         teve sintomas de COVID-19 nos ultimos 5 dias, ou se teve febre ou falta de ar ou falta de paladar ou olfato. \n Por favor não responda este email. \n
@@ -66,7 +66,7 @@ async function sendMail(matricula, radioTipo, identificacao, empresa, radioSinto
     } else {
       await transporter.sendMail({
         from: "tony.desideri@grupoicts.com.br",
-        to: "iza_travassus@denso.com.br, diego_damasceno@denso.com.br, dayana_carvalho@denso.com.br, kazumi_eto@denso.com.br, tony.desideri@grupoicts.com.br", 
+        to: "iza_travassus@denso.com.br, diego_damasceno@denso.com.br, dayana_carvalho@denso.com.br, kazumi_eto@denso.com.br, daniel_dona@denso.com.br", 
         subject: "Alerta intrevista COVID-19 #XôCorona",
         text: `Olá, este email está sendo enviado quando no formulário na entrevista da COVID-19 é preenchido a resposta "sim" para a pergunta se a pessoa 
         teve sintomas de COVID-19 nos ultimos 5 dias, ou se teve febre ou falta de ar ou falta de paladar ou olfato. \n Por favor não responda este email. \n
