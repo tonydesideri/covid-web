@@ -6,24 +6,6 @@ const fs = require('fs');
 const nodemailer = require('nodemailer');
 const mailConfig = require('./config/mail');
 
-// var transporter = nodemailer.createTransport({
-//     service: 'umbler',
-//     host: 'smtp.umbler.com',
-//     port: 587,
-//     secure: false,
-//     auth: {
-//       user: 'covid@jfcosmeticos.com.br',
-//       pass: '!Pa55w.rd!'
-//     }
-//   });
-  
-//   var mailOptions = {
-//     from: 'covid@jfcosmeticos.com.br',
-//     to: 'danieldona@bol.com.br, daniel.dona.82@gmail.com, covid@jfcosmeticos.com.br',
-//     subject: 'Sending Email using Node.js',
-//     text: 'That was easy!'
-//   };
-
 app.use(express.static(__dirname + '/views'));
 app.use(express.static(__dirname + '/css'));
 app.use(bodyParser.json());      
@@ -189,7 +171,7 @@ app.post('/registrar', (req, res) => {
             //console.log('Updated!');
         });
 
-        if (c2 === 'on' || c4 === 'on' || c5 === 'on' || c1 === 'on') {
+        if (c2 === 'on' || c4 === 'on' || c5 === 'on' || radioSintoma == 'on') {
           res.sendFile(path.join(__dirname, 'views', 'alert.html'));
         } else {
           res.sendFile(path.join(__dirname, 'views', 'ok.html'));
