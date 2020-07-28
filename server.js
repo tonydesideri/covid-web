@@ -33,44 +33,66 @@ app.listen(process.env.PORT || 3000,() => {
     console.log(`Rodando ${process.env.PORT || 3000}`);
 });
 
-async function sendMail(matricula) {
-    const { host, port, secure, auth } = mailConfig;
+async function sendMail(matricula, radioTipo, identificacao, empresa, radioSintoma, c2, c4, c5) {
+    const { host, port, secure, auth, service } = mailConfig;
 
     this.transporter = nodemailer.createTransport({
+      service,
       host,
       port,
       secure,
       auth: auth.user ? auth : null,
     });
 
-    await transporter.sendMail({
-      from: "DENSO <noreply@denso.com.br>",
-      to: "tony.desideri@grupoicts.com.br", 
-      subject: "COVID",
-      text: "COVID",
-      html: `<p>O funcionário de matrícula ${matricula}, marcou sim para febre, falta de paladar e falta de ar.<p>`,
-    });
+    if (radioTipo == 'colaborador') {
+      await transporter.sendMail({
+        from: "tony.desideri@grupoicts.com.br",
+        to: "iza_travassus@denso.com.br, diego_damasceno@denso.com.br, dayana_carvalho@denso.com.br, kazumi_eto@denso.com.br, tony.desideri@grupoicts.com.br", 
+        subject: "Alerta intrevista COVID-19 #XôCorona",
+        text: `Olá, este email está sendo enviado quando no formulário na entrevista da COVID-19 é preenchido a resposta "sim" para a pergunta se a pessoa 
+        teve sintomas de COVID-19 nos ultimos 5 dias, ou se teve febre ou falta de ar ou falta de paladar ou olfato. \n Por favor não responda este email. \n
+        
+        O colaborador com a matricula ${matricula} teve as seguintes respostas: \n
+  
+        Você teve sintoma de COVID-19 nos últimos 5 dias?\n
+        ${radioSintoma == 'on' ? 'Sim' : 'Não'}\n
+  
+        Você teve um ou mais sintomas abaixo nos últimos 5 dias?\n
+        Falta de ar: ${c2 == 'on' ? 'Sim' : 'Não'}\n
+        Febre: ${c4 == 'on' ? 'Sim' : 'Não'}\n
+        Falta de paladar ou olfato: ${c5 == 'on' ? 'Sim' : 'Não'}\n
+        `,
+      });
+    } else {
+      await transporter.sendMail({
+        from: "tony.desideri@grupoicts.com.br",
+        to: "iza_travassus@denso.com.br, diego_damasceno@denso.com.br, dayana_carvalho@denso.com.br, kazumi_eto@denso.com.br, tony.desideri@grupoicts.com.br", 
+        subject: "Alerta intrevista COVID-19 #XôCorona",
+        text: `Olá, este email está sendo enviado quando no formulário na entrevista da COVID-19 é preenchido a resposta "sim" para a pergunta se a pessoa 
+        teve sintomas de COVID-19 nos ultimos 5 dias, ou se teve febre ou falta de ar ou falta de paladar ou olfato. \n Por favor não responda este email. \n
+        
+        O visitante com a identificação: ${identificacao} da empresa: ${empresa} teve as seguintes respostas: \n
+  
+        Você teve sintoma de COVID-19 nos últimos 5 dias?\n
+        ${radioSintoma == 'on' ? 'Sim' : 'Não'}\n
+  
+        Você teve um ou mais sintomas abaixo nos últimos 5 dias?\n
+        Falta de ar: ${c2 == 'on' ? 'Sim' : 'Não'}\n
+        Febre: ${c4 == 'on' ? 'Sim' : 'Não'}\n
+        Falta de paladar ou olfato: ${c5 == 'on' ? 'Sim' : 'Não'}\n
+        `,
+      });
+    }
+    
+    
 }
 
 app.get('/', (req, res) => {
-  /*
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
-   */
-   // res.sendFile(path.join(__dirname, 'views', 'auto.html'));
-    fs.createReadStream(path.join(__dirname, 'views', 'teste.html'))
+    fs.createReadStream(path.join(__dirname, 'views', 'auto.html'))
     .pipe(res); 
-
-    
-
 })
 
-app.get('/registros', (req,res) => {
+app.get('/registros', (req, res) => {
     fs.readdir("./data", (err, paths) => {
         var txt="";
         var arquivos = paths;
@@ -92,8 +114,8 @@ app.get('/registros', (req,res) => {
 
 app.post('/registrar', (req, res) => {
     const matriculasValidas = ['10801','12010','11915','11992','11739','12104','11681','11527','12103','11158','11540','12093','12031','11909','11991','11331','11823','11837','11179','12054','11657','11874','11656','10509','10699','10441','11272','11602','10985','11986','11931','12009','10181','12096','10108','11888','11975','11990','11914','11828','11500','10884','12014','12026','11871','12097','11130','11846','11151','11908','11055','11677','11985','11693','11890','11858','10713','11737','11948','11947','11750','11635','11642','11409','10661','11989','11736','11984','12030','12048','11233','11646','11903','11547','11856','11994','11022','11746','11982','11925','11807','11766','11348','12041','11485','11882','11168','12058','12029','11645','10855','11988','11853','12091','11479','12110','12025','11937','11876','11767','10956','11512','11895','12066','12046','12013','11183','11970','11971','10162','11855','10933','12085','11323','11981','11894','11038','11511','11178','11592','10941','12067','11674','11734','11958','12084','12109','11478','12044','11892','11805','11641','10495','11173','12039','12095','11071','11424','11097','12108','11276','10125','11546','11207','12083','11263','11959','12094','10321','11697','12090','12102','12073','10061','10709','10556','11722','12072','11182','12071','11383','12043','12028','11595','11952','10187','10381','11230','12056','11944','12036','11932','11926','10557','11917','10314','12080','11901','11843','12101','11228','11227','10254','11907','11793','10893','11997','10876','11936','11880','12053','11820','11918','12023','11057','12022','10569','11999','11256','11561','11842','11572','12006','11587','11966','11817','12037','12011','11723','11637','11968','12055','11390','12068','11167','11836','10488','11343','12063','12100','11967','11379','11666','11962','11459','11466','11671','12018','11313','11188','12035','12042','12000','11007','11726','11900','11517','12099','11923','11683','11311','11581','11224','11899','11652','12017','11791','11848','11801','11375','12051','11844','12088','12098','11884','11806','10134','11898','11651','11987','12060','11756','12107','11664','12005','11809','11941','11260','10687','12050','12027','10937','12106','12021','11192','11942','11670','12086','11342','12105','12078','12033','12032','12016','10095','11106','12020','11800','11497','10231','11979'];
-    console.log(req.body)
-    var { matricula, radioTipo } = req.body;
+    console.log(req.body);
+    var { matricula, radioTipo, radioSintoma } = req.body;
     
     if(radioTipo == 'colaborador') {
       if (!matriculasValidas.find(item => item === matricula)) {
@@ -125,9 +147,7 @@ app.post('/registrar', (req, res) => {
         
         //Enviar email
         if (c2 === 'on' || c4 === 'on' || c5 === 'on') {
-          if (matricula) {
-            sendMail(matricula);
-          } 
+          sendMail(matricula, radioTipo, identificacao, empresa, radioSintoma, c2, c4, c5);
         }
 
         // Função para formatar 1 em 01
