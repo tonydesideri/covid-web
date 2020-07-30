@@ -11,8 +11,8 @@ app.use(express.static(__dirname + '/css'));
 app.use(bodyParser.json());      
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.listen(process.env.PORT || 3001,() => {
-    console.log(`Rodando ${process.env.PORT || 3000}`);
+app.listen(process.env.PORT || 80,() => {
+    console.log(`Rodando ${process.env.PORT || 80}`);
 });
 
 async function sendMail(matricula, radioTipo, identificacao, empresa, c2, c4, c5) {
