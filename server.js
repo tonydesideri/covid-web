@@ -15,7 +15,7 @@ app.listen(process.env.PORT || 80,() => {
     console.log(`Rodando ${process.env.PORT || 80}`);
 });
 
-async function sendMail(matricula, radioTipo, identificacao, empresa, c2, c4, c5) {
+async function sendMail(matricula, radioTipo, identificacao, empresa, c3, c5, c6, c7) {
     const { host, port, secure, auth, service } = mailConfig;
 
     this.transporter = nodemailer.createTransport({
@@ -36,26 +36,28 @@ async function sendMail(matricula, radioTipo, identificacao, empresa, c2, c4, c5
         
         O colaborador com a matricula ${matricula} teve as seguintes respostas: \n
   
-        Você teve um ou mais dos sintomas abaixo nas últimas 12 horas?\n
-        Falta de ar: ${c2 == 'on' ? 'Sim' : 'Não'}\n
-        Febre: ${c4 == 'on' ? 'Sim' : 'Não'}\n
-        Falta de paladar ou olfato: ${c5 == 'on' ? 'Sim' : 'Não'}\n
+        Você teve um ou mais dos sintomas abaixo nos últimos 5 dias?\n
+        Febre: ${c3 == 'on' ? 'Sim' : 'Não'}\n
+        Dificuldade para respirar: ${c5 == 'on' ? 'Sim' : 'Não'}\n
+        Perda de olfato: ${c6 == 'on' ? 'Sim' : 'Não'}\n
+        Alteração do paladar: ${c7 == 'on' ? 'Sim' : 'Não'}\n
         `,
       });
     } else {
       await transporter.sendMail({
         from: "tony.desideri@grupoicts.com.br",
-        to: "iza_travassus@denso.com.br, diego_damasceno@denso.com.br, dayana_carvalho@denso.com.br, kazumi_eto@denso.com.br, daniel_dona@denso.com.br", 
+        to: "iza_travassus@denso.com.br, diego_damasceno@denso.com.br, dayana_carvalho@denso.com.br, kazumi_eto@denso.com.br", 
         subject: "Alerta intrevista COVID-19 #XôCorona",
         text: `Olá, este email está sendo enviado quando no formulário na entrevista da COVID-19 é preenchido a resposta "sim" para a pergunta se a pessoa 
         teve sintomas de COVID-19 nos ultimos 5 dias, ou se teve febre ou falta de ar ou falta de paladar ou olfato. \n Por favor não responda este email. \n
         
         O visitante com a identificação: ${identificacao} da empresa: ${empresa} teve as seguintes respostas: \n
   
-        Você teve um ou mais dos sintomas abaixo nas últimas 12 horas?\n
-        Falta de ar: ${c2 == 'on' ? 'Sim' : 'Não'}\n
-        Febre: ${c4 == 'on' ? 'Sim' : 'Não'}\n
-        Falta de paladar ou olfato: ${c5 == 'on' ? 'Sim' : 'Não'}\n
+        Você teve um ou mais dos sintomas abaixo nos últimos 5 dias?\n
+        Febre: ${c3 == 'on' ? 'Sim' : 'Não'}\n
+        Dificuldade para respirar: ${c5 == 'on' ? 'Sim' : 'Não'}\n
+        Perda de olfato: ${c6 == 'on' ? 'Sim' : 'Não'}\n
+        Alteração do paladar: ${c7 == 'on' ? 'Sim' : 'Não'}\n
         `,
       });
     }
@@ -116,7 +118,6 @@ app.post('/registrar', (req, res) => {
         var { c6 } = req.body;
         var { c7 } = req.body;
         var { c8 } = req.body;
-        var { c9 } = req.body;
         var { assinatura } = req.body;
         if (c1 == undefined) {c1="off"};
         if (c2 == undefined) {c2="off"};
@@ -126,11 +127,10 @@ app.post('/registrar', (req, res) => {
         if (c6 == undefined) {c6="off"};
         if (c7 == undefined) {c7="off"};
         if (c8 == undefined) {c8="off"}; 
-        if (c9 == undefined) {c9="off"}; 
         
         //Enviar email
-        if (c2 === 'on' || c4 === 'on' || c5 === 'on' ) {
-          sendMail(matricula, radioTipo, identificacao, empresa, c2, c4, c5);
+        if (c3 === 'on' || c5 === 'on' || c6 === 'on' || c7 === 'on' ) {
+          sendMail(matricula, radioTipo, identificacao, empresa, c3, c5, c6, c7);
         }
 
         // Função para formatar 1 em 01
@@ -145,16 +145,15 @@ app.post('/registrar', (req, res) => {
         var reg = '';
         reg = reg + tz + ";" + dataHora + ';' + matricula + ';empresa;' + empresa + ';<br>' + '\n';
         reg = reg + tz + ";" + dataHora + ';' + matricula + ';identificacao;' + identificacao + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q3;' + c1 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q4;' + c2 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q5;' + c3 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q6;' + c4 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q7;' + c5 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q8;' + c6 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q9;' + c7 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q10;' + c8 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q11;' + c9 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q12;' + assinatura + ';<br>' + '\n';
+        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q1;' + c1 + ';<br>' + '\n';
+        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q2;' + c2 + ';<br>' + '\n';
+        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q3;' + c3 + ';<br>' + '\n';
+        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q4;' + c4 + ';<br>' + '\n';
+        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q5;' + c5 + ';<br>' + '\n';
+        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q6;' + c6 + ';<br>' + '\n';
+        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q7;' + c7 + ';<br>' + '\n';
+        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q8;' + c8 + ';<br>' + '\n';
+        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q9;' + assinatura + ';<br>' + '\n';
         
         nomeArq = "data/"+now.getFullYear()+zeroFill((now.getMonth() + 1))+zeroFill(now.getUTCDate())+".txt";
         fs.appendFile(nomeArq, reg, function (err) {
@@ -162,7 +161,7 @@ app.post('/registrar', (req, res) => {
             //console.log('Updated!');
         });
 
-        if (c2 === 'on' || c4 === 'on' || c5 === 'on') {
+        if (c3 === 'on' || c5 === 'on' || c6 === 'on' || c7 === 'on' ) {
           res.sendFile(path.join(__dirname, 'views', 'alert.html'));
         } else {
           res.sendFile(path.join(__dirname, 'views', 'ok.html'));
