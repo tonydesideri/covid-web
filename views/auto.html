@@ -79,11 +79,6 @@
               return false;
           }
         }
-
-        if ((document.getElementById('r1').checked == false) && (document.getElementById('r2').checked == false)) {
-              alert("É necessário informar se teve ou não sintomas de COVID.");
-              return false;
-        }
           if (document.getElementById('assinatura').checked == false) {
             alert("É necessário confirmar a DECLARAÇÃO.");
             return false;
@@ -152,26 +147,7 @@
             </div>
             <div id="div-corpo" style="display: none">
               <div class="row">
-                <label>Temperatura corporal</label>
-              </div>
-              <div class="row">
-                  <input type="text" style="font-weight:bold" id="temperatura" name="temperatura" placeholder="">
-              </div>
-              <div class="row">
-                  <label>Você teve sintoma de COVID-19 nos últimos 5 dias?</label>
-              </div>
-              <div class="row">
-                  <label class="radiocontainer">Sim
-                    <input type="radio" id=r1 name="radioSintoma" value="on"/>
-                    <span class="radiomark"></span>
-                  </label>
-                  <label class="radiocontainer">Não
-                    <input type="radio" id=r2 name="radioSintoma" value="off"/>
-                    <span class="radiomark"></span>
-                  </label>
-              </div>  
-              <div class="row">
-                  <label>Você teve um ou mais sintomas abaixo nos últimos 5 dias?</label>
+                  <label>Você teve um ou mais dos sintomas abaixo nas últimas 12 horas?</label>
               </div>
               <div class="row">
                   <label class="checkcontainer">Tosse
