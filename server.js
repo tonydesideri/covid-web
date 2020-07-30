@@ -143,8 +143,11 @@ app.post('/registrar', (req, res) => {
         // Formata a data conforme dd/mm/aaaa hh:ii:ss
         const dataHora = zeroFill(now.getUTCDate()) + '/' + zeroFill((now.getMonth() + 1)) + '/' + now.getFullYear() + ' ' + zeroFill(now.getHours()) + ':' + zeroFill(now.getMinutes()) + ':' + zeroFill(now.getSeconds());
         var reg = '';
-
-        reg = `${tz};${dataHora};${radioTipo};${matricula};${empresa || "DENSO"};${identificacao};${c1};${c2};${c3};${c4};${c5};${c6};${c7};${c8};${assinatura}`
+        reg = `;${c1};${c2};${c3};${c4};${c5};${c6};${c7};${c8};${assinatura}`;
+        reg = reg.split(';on').join(';sim');
+        reg = reg.split(';off').join(';nao');
+        reg = `${tz};${dataHora};${radioTipo};${matricula};${empresa || "DENSO"};${identificacao}${reg};<br>\n`
+        console.log(reg);
         // reg = reg + tz + ";" + dataHora + ';' + matricula + ';empresa;' + empresa + ';<br>' + '\n';
         // reg = reg + tz + ";" + dataHora + ';' + matricula + ';identificacao;' + identificacao + ';<br>' + '\n';
         // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q1;' + c1 + ';<br>' + '\n';
