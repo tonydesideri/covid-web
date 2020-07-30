@@ -143,17 +143,19 @@ app.post('/registrar', (req, res) => {
         // Formata a data conforme dd/mm/aaaa hh:ii:ss
         const dataHora = zeroFill(now.getUTCDate()) + '/' + zeroFill((now.getMonth() + 1)) + '/' + now.getFullYear() + ' ' + zeroFill(now.getHours()) + ':' + zeroFill(now.getMinutes()) + ':' + zeroFill(now.getSeconds());
         var reg = '';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';empresa;' + empresa + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';identificacao;' + identificacao + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q1;' + c1 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q2;' + c2 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q3;' + c3 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q4;' + c4 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q5;' + c5 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q6;' + c6 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q7;' + c7 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q8;' + c8 + ';<br>' + '\n';
-        reg = reg + tz + ";" + dataHora + ';' + matricula + ';q9;' + assinatura + ';<br>' + '\n';
+
+        reg = `${tz};${dataHora};${radioTipo};${matricula};${empresa || "DENSO"};${identificacao};${c1};${c2};${c3};${c4};${c5};${c6};${c7};${c8};${assinatura}`
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';empresa;' + empresa + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';identificacao;' + identificacao + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q1;' + c1 + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q2;' + c2 + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q3;' + c3 + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q4;' + c4 + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q5;' + c5 + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q6;' + c6 + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q7;' + c7 + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q8;' + c8 + ';<br>' + '\n';
+        // reg = reg + tz + ";" + dataHora + ';' + matricula + ';q9;' + assinatura + ';<br>' + '\n';
         
         nomeArq = "data/"+now.getFullYear()+zeroFill((now.getMonth() + 1))+zeroFill(now.getUTCDate())+".txt";
         fs.appendFile(nomeArq, reg, function (err) {
