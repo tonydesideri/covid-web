@@ -45,14 +45,11 @@
       }
 
       function validarEnvio() {
-
-
         if (document.getElementById('colaborador').checked) {
-          if ((isNaN((document.getElementById('matricula').value).trim()) == true) ||
-              ((document.getElementById('matricula').value).trim() == "" )) {
-              alert("É necessário Informar a matrícula.");
-              document.getElementById('matricula').focus();
-              return false;
+          if (!document.getElementById('matricula').value) {
+            alert("É necessário Informar a matrícula.");
+            document.getElementById('matricula').focus();
+            return false;
           }
           if (parseInt(document.getElementById('matricula').value)<10000)  {
               alert("A matrícula deve ter 5 dígitos.");
@@ -67,18 +64,33 @@
               document.getElementById('matricula').focus();
               return false;
           }
-          return true;
-        } else {
-          if (document.getElementById('empresa').value === '') {
+        } 
+        
+        if (document.getElementById('visitante').checked){
+          if (!document.getElementById('empresa').value) {
               alert("É necessário informar sua empresa.");
               return false;
           }
 
-          if (document.getElementById('identificacao').value === '') {
+          if (!document.getElementById('identificacao').value) {
               alert("É necessário informar sua identificação.");
               return false;
           }
         }
+
+          if ((!document.getElementById('c1').checked) &&
+            (!document.getElementById('c2').checked) &&
+            (!document.getElementById('c3').checked) &&
+            (!document.getElementById('c4').checked) &&
+            (!document.getElementById('c5').checked) &&
+            (!document.getElementById('c6').checked) &&
+            (!document.getElementById('c7').checked) &&
+            (!document.getElementById('c8').checked)
+          ) {
+              alert("Por favor informe algum dos sintomas ou marque a opção de que não possui nenhum dos sintomas.")
+              return false;
+          }
+
           if (document.getElementById('assinatura').checked == false) {
             alert("É necessário confirmar a DECLARAÇÃO.");
             return false;
@@ -183,7 +195,6 @@
                     <span class="checkmark"></span>
                   </label>   
               </div> 
-
               <div class="row">
                 <label>
                 </label>
@@ -193,7 +204,7 @@
                 </label>   
               </div>
               <div class="row">
-                <input type="submit" id="btnEnviar"  value="Enviar">
+                <input type="submit" id="btnEnviar"  value="Enviar" />
               </div>           
             </div>
           </form>

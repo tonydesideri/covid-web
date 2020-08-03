@@ -103,7 +103,7 @@ app.post('/registrar', (req, res) => {
     console.log(req.body);
     var { matricula, radioTipo } = req.body;
     
-    if(radioTipo == 'colaborador') {
+    if(radioTipo === 'colaborador' && matricula ) {
       if (!matriculasValidas.find(item => item === matricula)) {
         res.sendFile(path.join(__dirname, 'views', 'ng.html'));
       }
