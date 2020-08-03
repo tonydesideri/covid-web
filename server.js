@@ -11,8 +11,8 @@ app.use(express.static(__dirname + '/css'));
 app.use(bodyParser.json());      
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.listen(process.env.PORT || 80,() => {
-    console.log(`Rodando ${process.env.PORT || 80}`);
+app.listen(process.env.PORT || 3000,() => {
+    console.log(`Rodando ${process.env.PORT || 3000}`);
 });
 
 async function sendMail(matricula, radioTipo, identificacao, empresa, c3, c5, c6, c7) {
@@ -76,7 +76,7 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/registros', (req, res) => {
-      if (req.body.senha == 'c0viD@2020!') {
+      if (req.body.senha == 'N?7DXfc=G!+2+T+_ET8MRN+BSTmXpW%*$=8e3aQ*kN9Yt+wQw$ahKDQy-Y*43pGM') {
       fs.readdir("./data", (err, paths) => {
         var txt="";
         var arquivos = paths;
@@ -128,7 +128,7 @@ app.post('/registrar', (req, res) => {
         if (c7 == undefined) {c7="off"};
         if (c8 == undefined) {c8="off"}; 
         
-        //Enviar email
+        // //Enviar email
         if (c3 === 'on' || c5 === 'on' || c6 === 'on' || c7 === 'on' ) {
           sendMail(matricula, radioTipo, identificacao, empresa, c3, c5, c6, c7);
         }
@@ -141,7 +141,7 @@ app.post('/registrar', (req, res) => {
         const now = new Date();
         const tz = now.getTimezoneOffset();
         // Formata a data conforme dd/mm/aaaa hh:ii:ss
-        const dataHora = zeroFill(now.getUTCDate()) + '/' + zeroFill((now.getMonth() + 1)) + '/' + now.getFullYear() + ' ' + zeroFill(now.getHours()) + ':' + zeroFill(now.getMinutes()) + ':' + zeroFill(now.getSeconds());
+        const dataHora = zeroFill(now.getDate()) + '/' + zeroFill((now.getMonth() + 1)) + '/' + now.getFullYear() + ' ' + zeroFill(now.getHours()) + ':' + zeroFill(now.getMinutes()) + ':' + zeroFill(now.getSeconds());
         var reg = '';
         reg = `;${c1};${c2};${c3};${c4};${c5};${c6};${c7};${c8};${assinatura}`;
         reg = reg.split(';on').join(';sim');
