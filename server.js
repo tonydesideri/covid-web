@@ -76,7 +76,7 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/registros', (req, res) => {
-      if (req.body.senha == 'N?7DXfcG!+2+T+_ET8MRN+BSTmXpW%*$8e3aQ*kN9Yt+wQw$ahKDQy-Y*43pGM') {
+      if (req.body.senha == 'TuWztyqQbrSHb89Nc6LC6P4H') {
       fs.readdir("./data", (err, paths) => {
         var txt="";
         var arquivos = paths;
